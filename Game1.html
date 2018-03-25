@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head> 
+
+	<script src="processing.min.js"> </script>
+
+	<script type = "application/processing" data-processing-target="demoscreen">
+
+		var x = 10; 
+		var y = 50; 
+		var dx = random (1,5); //number between 1 and 5 including 1 and 5 
+		var dy = random (1,5);
+
+		void draw () {
+			size (1335, 600);
+			background (153, 236, 247);
+
+			fill (255, 0, 0);
+			ellipse (x+dx, y+dy, 20, 20); //add dx so position is always changing (20 20 is the size of the circle)
+
+			var width = 150; 
+			var height = 40; 
+			var ypos = 500; //we want y costant, x to change 
+			fill (0, 0, 255);
+			rect (mouseX, ypos, width, height); //to follow the cursor 
+
+			x += dx; 
+			y += dy; 
+
+			if (x >= 1335 || x <= 0){
+				dx = -dx; //make it change directions
+			}
+			if (y<=0){
+				dy = -dy; 
+			}
+
+			if ( x>mouseX && x < mouseX+width && y>ypos && y< ypos+height){
+				dx = -dx;
+				dy = -dy;
+			}
+
+			PFont font;
+			font = loadFont("FFScala.ttf");
+
+			textFont(font);
+
+			if (y>=600){
+				fill(0,255,0);
+				stroke(0,0,0);
+				strokeWeight(20);
+				textSize (100);
+				text("GAME OVER", 510,300); 
+			}
+		}
+
+		</script>
+	</head>
+
+	<body>
+		<canvas id = "demoscreen"></canvas>
+	</body>
+
+	</html>
+
